@@ -12,14 +12,14 @@ public abstract class Subscriber {
         this.subscriberMessages = subscriberMessages;
     }
 
-    //Add subscriber with PubSubService for a topic
-    public abstract void addSubscriber(String topic, PubSubService pubSubService);
+    //Add subscriber with Broker for a content
+    public abstract void addSubscriber(String content, Broker broker);
 
-    //Unsubscribe subscriber with PubSubService for a topic
-    public abstract void unSubscribe(String topic, PubSubService pubSubService);
+    //Unsubscribe subscriber with Broker for a content
+    public abstract void unSubscribe(String content, Broker broker);
 
-    //Request specifically for messages related to topic from PubSubService
-    public abstract void getMessagesForSubscriberOfTopic(String topic, PubSubService pubSubService);
+    //Request specifically for messages related to content from Broker
+    public abstract void getMessagesForSubscriberOfTopic(String content, Broker broker);
 
     //Print all messages received by the subscriber
     public void printMessages(){

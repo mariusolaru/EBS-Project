@@ -1,5 +1,5 @@
 
 public interface Publisher {
-    //Publishes new message to PubSubService
-    void publish(Message message, PubSubService pubSubService);
+    //Publishes new message to Broker
+    void publish(Message message, Broker broker);
 }
