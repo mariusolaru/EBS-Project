@@ -11,9 +11,11 @@ public class DriverClass {
         Subscriber allLanguagesSubscriber = new SubscriberImpl();
         Subscriber pythonSubscriber = new SubscriberImpl();
 
-        Broker broker = new Broker();
+        Broker broker1 = new Broker();
+        Broker broker2 = new Broker();
 
-        //Declare Messages and Publish Messages to Broker
+
+        // Declare Messages and Publish Messages to Broker
         Message javaMsg1 = new Message("Java", "Core Java Concepts");
         Message javaMsg2 = new Message("Java", "Spring MVC : Dependency Injection and AOP");
         Message javaMsg3 = new Message("Java", "JPA & Hibernate");
