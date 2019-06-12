@@ -1,3 +1,4 @@
+import java.util.Random;
 
 public class DriverClass {
 
@@ -14,7 +15,6 @@ public class DriverClass {
         Broker broker1 = new Broker();
         Broker broker2 = new Broker();
 
-
         // Declare Messages and Publish Messages to Broker
         Message javaMsg1 = new Message("Java", "Core Java Concepts");
         Message javaMsg2 = new Message("Java", "Spring MVC : Dependency Injection and AOP");
@@ -30,17 +30,41 @@ public class DriverClass {
         pythonPublisher.publish(pythonMsg1, broker);
         pythonPublisher.publish(pythonMsg2, broker);
 
-        //Declare Subscribers
-        javaSubscriber.addSubscriber("Java", broker);		//Java subscriber only subscribes to Java topics
-        pythonSubscriber.addSubscriber("Python", broker);   //Python subscriber only subscribes to Python topics
-        allLanguagesSubscriber.addSubscriber("Java", broker);	//all subscriber, subscribes to both Java and Python
-        allLanguagesSubscriber.addSubscriber("Python", broker);
+        // Declare Subscribers
 
-        //Trying unSubscribing a subscriber
-        //pythonSubscriber.unSubscribe("Python", broker);
+        Random rand = new Random();
+        int randomNum = rand.nextInt((1 - 0) + 1) + 0;
 
-        //Broadcast message to all subscribers. After broadcast, messageQueue will be empty in Broker
-        broker.broadcast();
+        if (randomNum == 1) {
+            javaSubscriber.addSubscriber("Java", broker2);        //Java subscriber only subscribes to Java topics
+        } else {
+            javaSubscriber.addSubscriber("Java", broker2);        //Java subscriber only subscribes to Java topics
+        }
+
+        randomNum = rand.nextInt((1 - 0) + 1) + 0;
+        if (randomNum == 1) {
+            pythonSubscriber.addSubscriber("Python", broker1);   //Python subscriber only subscribes to Python topics
+        } else {
+            pythonSubscriber.addSubscriber("Python", broker2);   //Python subscriber only subscribes to Python topics
+        }
+
+        randomNum = rand.nextInt((1 - 0) + 1) + 0;
+        if (randomNum == 1) {
+            allLanguagesSubscriber.addSubscriber("Java", broker1);	//all subscriber, subscribes to both Java and Python
+        } else {
+            allLanguagesSubscriber.addSubscriber("Java", broker2);	//all subscriber, subscribes to both Java and Python
+        }
+
+
+        randomNum = rand.nextInt((1 - 0) + 1) + 0;
+        if (randomNum == 1) {
+            allLanguagesSubscriber.addSubscriber("Python", broker1);
+        } else {
+            allLanguagesSubscriber.addSubscriber("Python", broker2);
+        }
+
+        broker1.broadcast();
+        broker2.broadcast();
 
         //Print messages of each subscriber to see which messages they got
         System.out.println("Messages of Java Subscriber are: ");
@@ -57,10 +81,13 @@ public class DriverClass {
         Message javaMsg4 = new Message("Java", "JSP and Servlets");
         Message javaMsg5 = new Message("Java", "Struts framework");
 
-        javaPublisher.publish(javaMsg4, broker);
-        javaPublisher.publish(javaMsg5, broker);
+        javaPublisher.publish(javaMsg4, broker1);
+        javaPublisher.publish(javaMsg4, broker2);
+        javaPublisher.publish(javaMsg5, broker1);
+        javaPublisher.publish(javaMsg5, broker2);
 
-        javaSubscriber.getMessagesForSubscriberOfTopic("Java", broker);
+        javaSubscriber.getMessagesForSubscriberOfTopic("Java", broker1);
+        javaSubscriber.getMessagesForSubscriberOfTopic("Java", broker2);
         System.out.println("\nMessages of Java Subscriber now are: ");
         javaSubscriber.printMessages();
     }
