@@ -15,25 +15,35 @@ public class DriverClass {
         Broker broker1 = new Broker();
         Broker broker2 = new Broker();
 
+        Random rand = new Random();
+        int randomNum = rand.nextInt((2 - 0) + 1) + 0;
+
+        Random rand2 = new Random();
+        int randomNum2 = rand2.nextInt((1 - 0) + 1) + 0;
+
         // Declare Messages and Publish Messages to Broker
-        Message javaMsg1 = new Message("Java", "Core Java Concepts");
-        Message javaMsg2 = new Message("Java", "Spring MVC : Dependency Injection and AOP");
-        Message javaMsg3 = new Message("Java", "JPA & Hibernate");
+        for (int i = 0; i < 10000; ++i) {
 
-        javaPublisher.publish(javaMsg1, broker);
-        javaPublisher.publish(javaMsg2, broker);
-        javaPublisher.publish(javaMsg3, broker);
+            if (randomNum == 0) {
+                Message javaMsg1 = new Message("Java", String.valueOf(i));
 
-        Message pythonMsg1 = new Message("Python", "Easy and Powerful programming language");
-        Message pythonMsg2 = new Message("Python", "Advanced Python message");
-
-        pythonPublisher.publish(pythonMsg1, broker);
-        pythonPublisher.publish(pythonMsg2, broker);
+                if (randomNum2 == 0) {
+                    javaPublisher.publish(javaMsg1, broker1);
+                } else {
+                    javaPublisher.publish(javaMsg1, broker2);
+                }
+            } else if (randomNum == 1) {
+                Message pythonMsg1 = new Message("Python", String.valueOf(1));
+                if (randomNum2 == 0) {
+                    pythonPublisher.publish(pythonMsg1, broker1);
+                } else {
+                    pythonPublisher.publish(pythonMsg1, broker1);
+                }
+            }
+        }
 
         // Declare Subscribers
-
-        Random rand = new Random();
-        int randomNum = rand.nextInt((1 - 0) + 1) + 0;
+        randomNum = rand.nextInt((1 - 0) + 1) + 0;
 
         if (randomNum == 1) {
             javaSubscriber.addSubscriber("Java", broker2);        //Java subscriber only subscribes to Java topics
